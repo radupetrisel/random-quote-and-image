@@ -13,8 +13,19 @@ final class RandomImageListViewModel {
     
     func getRandomImages(_ ids: [Int]) async {
         do {
-            let randomImages = try await WebService().getRnadomImages(ids)
-            self.randomImages = randomImages.map(RandomImageViewModel.init(randomImage:))
+            let webService = WebService()
+            
+            try await withThrowingTaskGroup(of: (Int, RandomImage).self) { group in
+                for id in ids {
+                    group.addTask {
+                        return (id, try await webService.getRandomImage(id))
+                    }
+                }
+                
+                for try await (_, randomImage) in group {
+                    randomImages.append(RandomImageViewModel(randomImage: randomImage))
+                }
+            }
         } catch {
             print(error)
         }

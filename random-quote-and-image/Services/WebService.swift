@@ -27,7 +27,7 @@ final class WebService {
         return randomImages
     }
     
-    private func getRandomImage(_ id: Int) async throws -> RandomImage {
+    func getRandomImage(_ id: Int) async throws -> RandomImage {
         guard let randomImageURL = Constants.URLs.getRandomImageURL() else { throw NetworkError.badURL }
         
         guard let randomQuoteURL = Constants.URLs.randomQuoteURL() else { throw NetworkError.badURL }
