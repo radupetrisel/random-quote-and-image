@@ -25,6 +25,9 @@ struct ContentView: View {
         .task {
             await viewModel.getRandomImages(Array(100...120))
         }
+        .refreshable {
+            await viewModel.getRandomImages(Array(0...20))
+        }
     }
 }
 

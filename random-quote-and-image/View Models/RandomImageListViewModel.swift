@@ -12,6 +12,8 @@ final class RandomImageListViewModel {
     var randomImages = [RandomImageViewModel]()
     
     func getRandomImages(_ ids: [Int]) async {
+        randomImages = []
+        
         do {
             let webService = WebService()
             
